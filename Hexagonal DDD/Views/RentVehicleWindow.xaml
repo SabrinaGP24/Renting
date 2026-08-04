@@ -1,0 +1,94 @@
+<Window x:Class="WPF_Hexagonal_DDD.Views.RentVehicleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Alquilar vehiculo" Height="440" Width="440"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="FieldLabel">
+            <Setter Property="Margin" Value="0,10,0,2" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="MinWidth" Value="90" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Vehiculo seleccionado -->
+        <Border Grid.Row="0" Background="#EEF3F8" CornerRadius="3" Padding="10">
+            <StackPanel>
+                <TextBlock Text="Vehiculo" FontWeight="SemiBold" Foreground="#37474F" />
+                <TextBlock Text="{Binding VehicleDescription}" FontSize="15" Margin="0,2,0,0" />
+            </StackPanel>
+        </Border>
+
+        <!-- Documento + busqueda -->
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Documento del cliente (DNI/NIE)" Style="{StaticResource FieldLabel}" />
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Content="Buscar" Margin="8,0,0,0"
+                        Command="{Binding SearchCustomerCommand}" IsDefault="True" />
+                <TextBox Text="{Binding DocumentId, UpdateSourceTrigger=PropertyChanged}"
+                         VerticalContentAlignment="Center" Padding="4,3" />
+            </DockPanel>
+        </StackPanel>
+
+        <!-- Datos del cliente: se habilitan tras buscar -->
+        <StackPanel Grid.Row="2" IsEnabled="{Binding CustomerLookedUp}">
+            <TextBlock Margin="0,14,0,0" FontWeight="Bold" Foreground="#37474F">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Text" Value="Cliente nuevo - rellena sus datos" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsKnownCustomer}" Value="True">
+                                <Setter Property="Text" Value="Cliente ya registrado - puedes corregir sus datos" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <TextBlock Text="Nombre" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Padding="4,3" />
+
+            <TextBlock Text="Apellidos" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Padding="4,3" />
+
+            <TextBlock Text="Telefono (opcional)" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" Padding="4,3" />
+        </StackPanel>
+
+        <!-- Mensaje de estado -->
+        <Border Grid.Row="3" Margin="0,14,0,0" Padding="10,6" Background="#F2F2F2" CornerRadius="3">
+            <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="#1B5E20" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasError}" Value="True">
+                                <Setter Property="Foreground" Value="#B71C1C" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Border>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+            <Button Content="Cancelar" IsCancel="True" Margin="0,0,8,0" />
+            <Button Content="Alquilar" Command="{Binding ConfirmCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>

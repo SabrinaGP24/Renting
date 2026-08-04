@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Hexagonal DDD/HexagonalDDD.Presentation.csproj" Id="62a0aa57-879b-4318-b178-4966f06801a3" />
+    <Project Path="HexagonalDDD.Applicaion/HexagonalDDD.Applicaion.csproj" Id="bf17d82e-2be9-4247-8304-43f0f008f808" />
+    <Project Path="HexagonalDDD.Domain/HexagonalDDD.Domain.csproj" Id="5da274ec-de6d-40ef-b45d-7dc17686d279" />
+    <Project Path="HexagonalDDD.Infraestructure/HexagonalDDD.Infraestructure.csproj" Id="6a08428f-43a2-42ba-b083-1070abc01189" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="HexagonalDDD.Functional.Test/HexagonalDDD.Functional.Test.csproj" Id="e863acb0-b9c0-442a-991a-2d788bc258d6" />
+    <Project Path="HexagonalDDD.Infraestructure.Test/HexagonalDDD.Infraestructure.Test.csproj" Id="94909c0c-fa47-48d7-9680-cef528176628" />
+    <Project Path="HexagonalDDD.Unit.Test/HexagonalDDD.Unit.Test.csproj" Id="ca2f5ee1-f791-46b4-93dd-89cb34573ce3" />
+  </Folder>
+</Solution>
